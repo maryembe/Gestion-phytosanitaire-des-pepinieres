@@ -1,17 +1,14 @@
-Agent
-CREATE TABLE `database`.`agent` (`CIN` VARCHAR(10) NULL , `passwd` VARCHAR(50) NULL , PRIMARY KEY (`CIN`))
-______________________________________
 Pep
-CREATE TABLE `database`.`pep` (`username` VARCHAR(50) NOT NULL , `passwd` VARCHAR(50) NOT NULL , `adresse` VARCHAR(75) NOT NULL , `tel` VARCHAR(10) NOT NULL , PRIMARY KEY (`username `))
+CREATE TABLE `database`.`pep` (`username` VARCHAR(50) NOT NULL , `passwd` VARCHAR(50) NOT NULL ,`type` VARCHAR(50) NOT NULL , PRIMARY KEY (`username `))
 _________________________________
 Physique
-CREATE TABLE `database`.`personne_physique` (`CIN` VARCHAR(50) NOT NULL , `nom` VARCHAR(50) NOT NULL ,id_pep VARCHAR(50) REFERENCES pep(username), PRIMARY KEY (`CIN`))
+CREATE TABLE `database`.`personne_physique` (`CIN` VARCHAR(50) NOT NULL , `nom` VARCHAR(50) NOT NULL , `adresse` VARCHAR(75) NOT NULL , `tel` VARCHAR(10) NOT NULL ,`adresse_pep` VARCHAR(75) NOT NULL ,`nom_pep` VARCHAR(50) NOT NULL ,id_pep VARCHAR(50) REFERENCES pep(username), PRIMARY KEY (`CIN`))
 ____________________________________________
 Moral
-CREATE TABLE `database`.`personne_morale` (`ICE` VARCHAR(50) NOT NULL ,`RC` VARCHAR(50) NOT NULL , `nom` VARCHAR(50) NOT NULL ,id_pep VARCHAR(50) REFERENCES pep(username), PRIMARY KEY (`ICE`))
+CREATE TABLE `database`.`personne_morale` (`ICE` INT NOT NULL ,`RC` INT NOT NULL , `nom` VARCHAR(50) NOT NULL ,`adresse` VARCHAR(75) NOT NULL ,`tel` VARCHAR(10) NOT NULL ,id_pep VARCHAR(50) REFERENCES pep(username), PRIMARY KEY (`ICE`))
 _______________________________
 declaration
-CREATE TABLE `database`.`declaration` (`N_enregistr` INT NOT NULL ,`date_decl` DATE NOT NULL , `adresse` VARCHAR(50) NOT NULL ,`prise` BOOLEAN NOT NULL ,id_pep VARCHAR(50) REFERENCES pep(username), PRIMARY KEY (`N_enregistr`))
+CREATE TABLE `database`.`declaration` (`N_enregistr` INT NOT NULL ,`date_decl` DATE NOT NULL , `prise` BOOLEAN NOT NULL ,id_pep VARCHAR(50) REFERENCES pep(username), PRIMARY KEY (`N_enregistr`))
 ___________________________________________
 Plant
 CREATE TABLE `database`.`plant` (`id_plant` INT NOT NULL ,`espece` VARCHAR(50) NOT NULL , `variete` VARCHAR(50) NOT NULL ,`porte_greffe` VARCHAR(50) NOT NULL ,`nb` INT NOT NULL ,id_decl VARCHAR(50) REFERENCES declaration(N_enregistr), PRIMARY KEY (`id_plant`))
