@@ -35,7 +35,12 @@ Moral
 CREATE TABLE `database`.`personne_morale` (`ICE` INT NOT NULL ,`RC` INT NOT NULL , `nom` VARCHAR(50) NOT NULL ,`adresse` VARCHAR(75) NOT NULL ,`tel` VARCHAR(10) NOT NULL ,id_pep VARCHAR(50) REFERENCES pep(username), PRIMARY KEY (`ICE`))
 _______________________________
 declaration
-CREATE TABLE `database`.`declaration` (`N_enregistr` INT NOT NULL ,`date_decl` DATE NOT NULL , `prise` BOOLEAN NOT NULL ,id_pep VARCHAR(50) REFERENCES pep(username), PRIMARY KEY (`N_enregistr`))
+CREATE TABLE `database`.`declaration` (
+    `N_enregistr` INT NOT NULL ,
+    `date_decl` DATE NOT NULL , 
+    `prise` BOOLEAN NOT NULL ,
+    id_pep VARCHAR(50) REFERENCES pep(username),
+     PRIMARY KEY (`N_enregistr`))
 ___________________________________________
 Plant
 CREATE TABLE `database`.`plant` (`id_plant` INT NOT NULL ,`espece` VARCHAR(50) NOT NULL , `variete` VARCHAR(50) NOT NULL ,`porte_greffe` VARCHAR(50) NOT NULL ,`nb` INT NOT NULL ,id_decl VARCHAR(50) REFERENCES declaration(N_enregistr), PRIMARY KEY (`id_plant`))
@@ -63,4 +68,4 @@ CREATE TABLE `database`.`affectation` (id_ag INT REFERENCES agent(CIN),id_dec IN
 INSERT INTO `pep` (  `username`, `password`, `role`) VALUES
 (  'yuki', '81dc9bdb52d04dc20036dbd8313ed055', 'Agent'),
 (  'nezuko', 'e2fc714c4727ee9395f324cd2e7f331f', 'Pepinieriste');
-
+INSERT INTO `declaration` (`N_enregistr`, `date_decl`, `prise`, `id_pep`) VALUES ('1', '2023-05-01', '1', 'nezuko');
