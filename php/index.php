@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <img src="LOGO.png">
+    <a href=""> <img src="LOGO.png" alt="logo"></a>
 
 
         <nav class="navbar">
