@@ -1,0 +1,92 @@
+form div{
+    margin: 30px;
+}
+.p_m{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+    border: solid 1px rgb(7, 46, 18);
+    box-shadow:  1px 1px 10px #0f5f23 inset;
+    width: 280px;
+    border-radius: 50px;
+    margin-left: 40%;
+    background-color: #082c0e;
+    height: 40px;
+}
+
+.p {
+    flex-grow: 2;
+    /*background: linear-gradient(#288347,#07a82a);*/
+    color: #fff;
+    text-shadow: 0 1px 0 #000;
+    transition: .3s;
+    /*box-shadow: 0 0 5px #050515;*/
+    border-radius: 50px;
+    text-align: center;
+    height: 40px;
+    padding-top: 5px;
+    font-size: larger;
+    margin: 0;
+}
+.m {
+    flex-grow: 2;
+    /*background: linear-gradient(#344eaf,#042665);*/
+    color: #fff;
+    text-shadow: 0 1px 0 #000;
+    transition: .3s;
+    /*box-shadow: 0 0 5px #050515;*/
+    border-radius: 50px;
+    text-align: center;
+    padding-top: 5px;
+    font-size: larger;
+    padding-left: 10px;
+    margin: 0;
+}
+input[type="radio"] {
+    opacity: 0;
+    pointer-events: none;
+}
+.radioLabel {
+    cursor: pointer;
+}
+header {
+    background-color: #012208d3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 5%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+h1{
+    margin-top: 110px;
+    font-family: serif;
+    margin-left: 250px;
+    margin-bottom: 0;
+}
+body{
+    background-image: url(../php/3.jpg); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+}
+form{
+    margin: 30px 200px ;
+    border: solid 1px #082c0e;
+    border-radius: 10px;
+    
+    backdrop-filter: blur(10px);
+}
+button{
+    margin-left: 500px;
+    margin-bottom: 20px;
+}
+.phrase{
+    margin: 0;
+    font-size: 20px;
+    font-family: serif;
+}
