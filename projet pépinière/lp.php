@@ -177,12 +177,14 @@ if(isset($_POST["submit"])){
             padding-bottom: 5px;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Demande du ACP/LP</title>
 </head>
 <body>
     <header>
         <a href="../php/index.php"><img src="../img/logo.png" alt="logo"></a> 
-        <a href="#" class="btn btn-danger btn-lg">
+        <a href="../php/logout.php" class="btn btn-danger btn-lg">
             <span class="glyphicon glyphicon-off"></span> Sign Out 
         </a>
     </header>

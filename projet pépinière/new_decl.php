@@ -48,14 +48,6 @@ if(isset($_POST["submit"])){
 
     }else{
         $decl_id_past=$list[count($list)-2]['N_enregistr'];
-        /*     tentative pour ne comprer que des declarations d'années succéssives
-        $date_cur=$list[count($list)-1]['date_decl'];
-        $date = $list[count($list)-2]['date_decl'];
-
-        $annee_cur = date('Y', strtotime($date_cur));
-        $annee = date('Y', strtotime($date))-1;
-        if($annee!=$annee_cur){
-        }*/
 
         //importer les anciennes plantes
         $import_past= $conn->prepare("SELECT * FROM `plant` WHERE `id_decl` = :id_past");
@@ -134,13 +126,15 @@ if(isset($_POST["submit"])){
             padding-bottom: 0.8rem;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Nouvelle déclaration</title>
     
 </head>
 <body>
     <header> 
-        <a href="../php/index.php"><img src="../img/logo.png" alt="logo"width=120px></a> 
-        <a href="#" class="btn btn-danger btn-lg">
+        <a href="../php/index.php"><img src="../img/logo.png" alt="logo" width=120px></a> 
+        <a href="../php/logout.php" class="btn btn-danger btn-lg">
             <span class="glyphicon glyphicon-off"></span> Sign Out
         </a>
     </header>
