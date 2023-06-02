@@ -154,22 +154,16 @@ $list = $list_decl->fetchAll();
 foreach($list as $decl){
     
     // les id du ctrl doc
-  /*  $select_ctrl_doc= $conn->prepare("SELECT id_ctrl_doc,date_ctrl_doc FROM `ctrl_doc` WHERE `id_decl` = :id");
-    $select_ctrl_doc->bindParam(":id", $decl["N_enregistr"]);
-    $select_ctrl_doc->execute();
-    $ctrls_doc = $select_ctrl_doc->fetchAll();*/
-    
-
-    $select_ctrl_doc = $conn->prepare("SELECT * FROM ctrl_doc WHERE id_ctrl_doc = (SELECT MAX(id_ctrl_doc) FROM ctrl_doc WHERE id_decl = :id)");
+    $select_ctrl_doc= $conn->prepare("SELECT id_ctrl_doc,date_ctrl_doc FROM `ctrl_doc` WHERE `id_decl` = :id");
     $select_ctrl_doc->bindParam(":id", $decl["N_enregistr"]);
     $select_ctrl_doc->execute();
     $ctrls_doc = $select_ctrl_doc->fetchAll();
-   // $id_ctrl_doc = $ctrls_doc['id_ctrl_doc'];
-            
+    
     
 
     //si il y a au moins un ctrl doc
     if(count($ctrls_doc)>0){
+        
         foreach($ctrls_doc as $ctrl_doc){
             
             //selecter le message
@@ -178,7 +172,6 @@ foreach($list as $decl){
             $select_msg_ctrl_doc->execute();
             $msg_doc = $select_msg_ctrl_doc->fetchAll();
             $msg_doc=$msg_doc[0]["Result_ctrl_doc"];
-
             
             //envoyer le message ctrl doc
             //afficher le message et la date
@@ -196,45 +189,50 @@ foreach($list as $decl){
                         <p class="message">${message}</p>
                 `;
             </script>
-            <?php
+
+
+
+
+
+            <?php 
             // <les id du ctrl1
-            $select_ctrl1= $conn->prepare("SELECT * FROM ctrl1 WHERE id_ctrl1 = (SELECT MAX(id_ctrl1) FROM ctrl1 WHERE id_ctrl_doc = :id)");
+            $select_ctrl1= $conn->prepare("SELECT id_ctrl1,date_ctrl1 FROM `ctrl1` WHERE `id_ctrl_doc` = :id");
             $select_ctrl1->bindParam(":id", $ctrl_doc["id_ctrl_doc"]);
             $select_ctrl1->execute();
             $ctrl1s = $select_ctrl1->fetchAll();
-            
+
             //si il ya de ctrl1
-            if(count($ctrl1s)>0){
-                foreach($ctrl1s as $ctrl1){
-                    //selecter le message
-                    $select_msg_ctrl1= $conn->prepare("SELECT Result_ctr1 FROM `courrier` WHERE `id_ctrl1` = :id");
-                    $select_msg_ctrl1->bindParam(":id", $ctrl1["id_ctrl1"]);
-                    $select_msg_ctrl1->execute();
-                    $msg1 = $select_msg_ctrl1->fetchAll();
-                    $msg1=$msg1[0]["Result_ctr1"];
-                    //afficher le message et la date
-                    ?>
-                    <script>
-                        // Utilisez la variable $msg1 ici
-                        var message1 = <?php echo json_encode($msg1); ?>;
-                        var date1 = <?php echo json_encode($ctrl1['date_ctrl1']); ?>;
-                        console.log(message1);
-                        var corps=document.getElementById("corps");
-                        corps.innerHTML+=`
+            
+            foreach($ctrl1s as $ctrl1){
+                    
+                //selecter le message
+                $select_msg_ctrl1= $conn->prepare("SELECT Result_ctr1 FROM `courrier` WHERE `id_ctrl1` = :id");
+                $select_msg_ctrl1->bindParam(":id", $ctrl1["id_ctrl1"]);
+                $select_msg_ctrl1->execute();
+                $msg1 = $select_msg_ctrl1->fetchAll();
+                //afficher le message et la date
+                ?>
+                <script>
+                    var message1 = <?php echo json_encode($msg1[0]["Result_ctr1"]); ?>;
+                    var date1 = <?php echo json_encode($ctrl1["date_ctrl1"]); ?>;
+                    var corps1=document.getElementById("corps");                  
+                    
+                    corps1.innerHTML+=`
                                 <div class="date">
                                     <span><strong>Control Physique 1</strong></span>
                                     <span><strong>${date1}</strong></span>
                                 </div>
-                                <p class="message">${message1}></p>
-                        `;
-                    </script>
-                    <?php
-                }
+                                <p class="message">${message1}</p>
+                    `;
+                </script>
+
+
+                <?php
             }
         }
     }
 }
-    
+ 
     
 
 //Traçons maintenant le processus et affichant les buttons nécéssaires
@@ -257,14 +255,14 @@ else{
 
     $date_cur=new DateTime($decl_cur['date_decl']);
     $d=new DateTime("-1 year");
-    if($d==$date_cur){
+    if($d>=$date_cur){
         //declaration terminée 
         ?>
         <script>
-            var elem=document.getElementsByTagName("li");
-            for(let k=0;k<elem.length;k++){
-                elem[k].classList.add("active");
-            }
+            var process=document.getElementById("precess");
+            var acp=document.getElementsByClassName("acp")[0];
+            process.style.cssText=`display:none`;
+            acp.style.cssText=`display:none`;
         </script>
         <?php
     }else{
@@ -274,6 +272,7 @@ else{
         $select_ctrl_doc->bindParam(":id", $decl_cur["N_enregistr"]);
         $select_ctrl_doc->execute();
         $ctrl_doc_cur = $select_ctrl_doc->fetchAll();
+        
         if(count($ctrl_doc_cur)==0){
             //ctrl doc pas encore fait
             ?>
@@ -290,10 +289,11 @@ else{
             <?php
         }else{
             //id du ctrl1
-            $select_ctrl1= $conn->prepare("SELECT id_ctrl1 FROM `ctrl1` WHERE id_ctrl1 = (SELECT MAX(id_ctrl1) FROM ctrl1 WHERE id_ctrl_doc = :id)");
+            $select_ctrl1= $conn->prepare("SELECT id_ctrl1 FROM `ctrl1` WHERE `id_ctrl1` = (SELECT MAX(id_ctrl1) FROM `ctrl1` WHERE `id_ctrl_doc` =:id)");
             $select_ctrl1->bindParam(":id", $ctrl_doc_cur[0]["id_ctrl_doc"]);
             $select_ctrl1->execute();
             $ctrl1_cur = $select_ctrl1->fetchAll();
+            
 
             if(count($ctrl1_cur)==0){
                 //ctrl1 pas encore fait
@@ -312,13 +312,15 @@ else{
                 </script>
                 <?php
             }else{
-                $select_ctrl2= $conn->prepare("SELECT id_ctrl2 FROM `ctrl2` WHERE id_ctrl2 = (SELECT MAX(id_ctrl2) FROM ctrl2 WHERE id_ctrl1 = :id)");
+                $select_ctrl2= $conn->prepare("SELECT id_ctrl2,conform FROM `ctrl2` WHERE `id_ctrl2` =(SELECT MAX(id_ctrl2) FROM `ctrl2` WHERE id_ctrl1=:id)");
                 $select_ctrl2->bindParam(":id", $ctrl1_cur[0]["id_ctrl1"]);
                 $select_ctrl2->execute();
-                $ctrl2_cur = $select_ctrl2->fetchAll();
+                $ctrl2 = $select_ctrl2->fetchAll();
+                
 
-                if(count($ctrl2_cur)==0){
-                    //ctrl2 pas encore fait
+                if(count($ctrl2)==0 || $ctrl2[0]["conform"]!="conforme"){
+                    
+                    //ctrl2 pas encore fait ou non conforme
                     ?>
                     <script>
                     var decl=document.getElementsByClassName("but_d")[0];

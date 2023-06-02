@@ -43,24 +43,21 @@ if(isset($_POST["submit"])){
             $req_inser_new->bindParam(":id_decl", $decl_id_current);
             $req_inser_new->execute();
         }
-        echo "hello";
-        echo "c'est" . var_dump($_POST[$es]);
 
     }else{
         $decl_id_past=$list[count($list)-2]['N_enregistr'];
-
-        //importer les anciennes plantes
-        $import_past= $conn->prepare("SELECT * FROM `plant` WHERE `id_decl` = :id_past");
-        $import_past->bindParam(":id_past", $decl_id_past);
-        $import_past->execute();
-        $list_plant = $import_past->fetchAll();
-
 
         //inclure toutes les plantes anciennes concernées dans la nouvelle declaration
         $req_update_id= $conn->prepare("UPDATE plant SET id_decl = :id_cur WHERE id_decl = :id_past;");
         $req_update_id->bindParam(":id_cur", $decl_id_current);
         $req_update_id->bindParam(":id_past", $decl_id_past);
         $req_update_id->execute();
+
+        //importer les anciennes plantes
+        $import_past= $conn->prepare("SELECT * FROM `plant` WHERE `id_decl` = :id_past");
+        $import_past->bindParam(":id_past", $decl_id_current);
+        $import_past->execute();
+        $list_plant = $import_past->fetchAll();
 
         //inclure les nouvelles plantes
 
@@ -75,10 +72,10 @@ if(isset($_POST["submit"])){
             foreach($list_plant as $plant){
                 if($_POST[$es]== $plant["espece"] && $_POST[$var]== $plant["variete"] && $_POST[$por_g]== $plant["porte_greffe"]){
                     //il s'agit d'une plante de type déjà existant 
-                    $stock=$_POST[$nb]+$plant["nb"];
+                    $stock = $_POST[$nb] + $plant["nb"];
 
-                    $req_update_stock= $conn->prepare("UPDATE plant SET nb = :nb WHERE id_decl = :id_cur;");
-                    $req_update_stock->bindParam(":id_cur", $decl_id_current);
+                    $req_update_stock= $conn->prepare("UPDATE plant SET nb = :nb WHERE id_plant=:id_p;");
+                    $req_update_stock->bindParam(":id_p", $plant["id_plant"]);
                     $req_update_stock->bindParam(":nb", $stock);
                     $req_update_stock->execute();
                     $inserted=true;

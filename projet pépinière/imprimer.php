@@ -42,6 +42,7 @@ session_start();
             margin-left: 150px;
             margin-right: 150px;
         }
+        
     </style>
     <title>Inscription</title>
 </head>
@@ -114,7 +115,7 @@ session_start();
         <?php
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $valid_json = $_POST["valid"];
-        
+                
                 // Convertir les chaînes JSON en tableaux
                 $valid = json_decode($valid_json);
                 
