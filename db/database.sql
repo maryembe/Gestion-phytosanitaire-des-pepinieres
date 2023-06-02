@@ -36,54 +36,30 @@ CREATE TABLE `database`.`personne_morale` (`ICE` INT NOT NULL ,`RC` INT NOT NULL
 _______________________________
 declaration
 CREATE TABLE `database`.`declaration` (
-    `N_enregistr` INT NOT NULL ,
-    `date_decl` DATE NOT NULL , 
+    `N_enregistr` INT NOT NULL AUTO_INCREMENT,
+    `date_decl` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     `Etat` enum('Non prise en charge ','Control documentaire non conforme ',"Control documentaire conforme","Control Physique 1 non conforme","Control Physique 1 conforme","Control Physique 2 conforme","Control Physique 2 non conforme") NOT NULL ,
     id_pep VARCHAR(50) REFERENCES pep(username),
-     PRIMARY KEY (`N_enregistr`))
+     PRIMARY KEY (`N_enregistr`))AUTO_INCREMENT=1;
 ___________________________________________
 Plant
-CREATE TABLE `database`.`plant` (`id_plant` INT NOT NULL ,`espece` VARCHAR(50) NOT NULL , `variete` VARCHAR(50) NOT NULL ,`porte_greffe` VARCHAR(50) NOT NULL ,`nb` INT NOT NULL ,id_decl VARCHAR(50) REFERENCES declaration(N_enregistr), PRIMARY KEY (`id_plant`))
+CREATE TABLE `database`.`plant` (`id_plant` INT NOT NULL AUTO_INCREMENT,`espece` VARCHAR(50) NOT NULL , `variete` VARCHAR(50) NOT NULL ,`porte_greffe` VARCHAR(50) NOT NULL ,`nb` INT NOT NULL ,id_decl VARCHAR(50) REFERENCES declaration(N_enregistr), PRIMARY KEY (`id_plant`))AUTO_INCREMENT=1;
 _________________________________________
 Ctrl doc
-CREATE TABLE `database`.`ctrl_doc` (`id_ctrl_doc` INT NOT NULL ,`date_ctrl_doc` DATE NOT NULL , `conform` VARCHAR(50) NOT NULL ,id_decl VARCHAR(50) REFERENCES declaration(N_enregistr), PRIMARY KEY (`id_ctrl_doc`))
-__________________________________________
+CREATE TABLE `database`.`ctrl_doc` (`id_ctrl_doc` INT NOT NULL ,`date_ctrl_doc` DATE NOT NULL , `conform` VARCHAR(50) NOT NULL ,id_decl VARCHAR(50) REFERENCES declaration(N_enregistr), PRIMARY KEY (`id_ctrl_doc`))AUTO_INCREMENT=1;__________________________________________
+
 Ctrl1
-CREATE TABLE `database`.`ctrl1` (`id_ctrl1` INT NOT NULL ,`date_ctrl1` DATE NOT NULL , `conform` VARCHAR(50) NOT NULL ,id_ctrl_doc INT REFERENCES ctrl_doc(id_ctrl_doc), PRIMARY KEY (`id_ctrl1`))
+CREATE TABLE `database`.`ctrl1` (`id_ctrl1` INT NOT NULL ,`date_ctrl1` DATE NOT NULL , `conform` VARCHAR(50) NOT NULL ,id_ctrl_doc INT REFERENCES ctrl_doc(id_ctrl_doc), PRIMARY KEY (`id_ctrl1`))AUTO_INCREMENT=1;
 ________________________________________________
 Ctrl2
-CREATE TABLE `database`.`ctrl2` (`id_ctrl2` INT NOT NULL ,`date_ctrl2` DATE NOT NULL , `conform` VARCHAR(50) NOT NULL ,id_ctrl1 INT REFERENCES ctrl1(id_ctrl1), PRIMARY KEY (`id_ctrl2`))
+CREATE TABLE `database`.`ctrl2` (`id_ctrl2` INT NOT NULL ,`date_ctrl2` DATE NOT NULL , `conform` VARCHAR(50) NOT NULL ,id_ctrl1 INT REFERENCES ctrl1(id_ctrl1), PRIMARY KEY (`id_ctrl2`))AUTO_INCREMENT=1;
 ___________________________________________
-CREATE TABLE `database`.`courrier` (`Num` INT NOT NULL  ,id_ctrl_doc INT REFERENCES ctrl_doc(id_ctrl_doc),"Result_ctrl_doc" VARCHAR(150)  ,id_ctrl1 INT REFERENCES ctrl1(id_ctrl1),"Result_ctr1" VARCHAR(150)   ,PRIMARY KEY (`Num`))
+CREATE TABLE `database`.`courrier` (`Num` INT NOT NULL  ,id_ctrl_doc INT REFERENCES ctrl_doc(id_ctrl_doc),"Result_ctrl_doc" VARCHAR(150)  ,id_ctrl1 INT REFERENCES ctrl1(id_ctrl1),"Result_ctr1" VARCHAR(150)   ,PRIMARY KEY (`Num`))AUTO_INCREMENT=1;
 ________________________________________________
 acp
-CREATE TABLE `database`.`acp` (`id_acp` INT NOT NULL ,`date_acp` DATE NOT NULL ,`destination` VARCHAR(100) NOT NULL ,id_DECL INT REFERENCES declaration(N_enregistr), PRIMARY KEY (`id_acp`))
-______
-acp
-CREATE TABLE `database`.`affectation` (id_ag INT REFERENCES agent(CIN),id_dec INT REFERENCES declaration(N_enregistr), PRIMARY KEY (`id_ad` , `id_dec`))
-
+CREATE TABLE `database`.`acp` (`id_acp` INT NOT NULL AUTO_INCREMENT,`date_acp` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,`destination` VARCHAR(100) NOT NULL ,id_DECL INT REFERENCES declaration(N_enregistr), PRIMARY KEY (`id_acp`))AUTO_INCREMENT=1;
 
 
 INSERT INTO `pep` (  `username`, `password`, `role`) VALUES
-(  'yuki', '81dc9bdb52d04dc20036dbd8313ed055', 'Agent'),
-(  'nezuko', 'e2fc714c4727ee9395f324cd2e7f331f', 'Pepinieriste');
-INSERT INTO `declaration` (`N_enregistr`, `date_decl`, `Etat`, `id_pep`) VALUES ('1', '2023-05-01', 'Non prise en charge', 'nezuko');
-ALTER TABLE `declaration`
-  MODIFY `N_enregistr` INT NOT NULL AUTO_INCREMENT;
-COMMIT;
-ALTER TABLE `plant`
-  MODIFY `id_plant` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-COMMIT;
-ALTER TABLE `ctrl_doc`
-  MODIFY `id_ctrl_doc` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-COMMIT;
-ALTER TABLE `ctrl1`
-  MODIFY `id_ctrl1` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-COMMIT;
-ALTER TABLE `ctrl2`
-  MODIFY `id_ctrl2` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-COMMIT;
-ALTER TABLE `acp`
-  MODIFY `id_acp` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-COMMIT;
+(  'yuki', '81dc9bdb52d04dc20036dbd8313ed055', 'Agent');
 
