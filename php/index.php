@@ -3,13 +3,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="index.css" />    
     <title>pfa  </title>
 </head>
 
 <body>
     <header>
-    <a href=""> <img src="LOGO.png" alt="logo"></a>
+        <a href=""> <img src="../img/logo.png" alt="logo"></a>
         <nav class="navbar">
             <a href="login.php">Sign in </a>
             <a href="../projet pépinière/inscription.php">Sign up </a>  

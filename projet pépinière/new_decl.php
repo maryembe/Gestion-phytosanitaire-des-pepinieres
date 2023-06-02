@@ -1,6 +1,5 @@
 <?php
 session_start();
-echo var_dump($_SESSION);
 ?>
 
 
@@ -129,11 +128,22 @@ if(isset($_POST["submit"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="inscription.css">
+    <style>
+        header{
+            padding-top: 0.8rem;
+            padding-bottom: 0.8rem;
+        }
+    </style>
     <title>Nouvelle déclaration</title>
     
 </head>
 <body>
-    <header><img src="" alt="logo"></header>
+    <header> 
+        <a href="../php/index.php"><img src="../img/logo.png" alt="logo"width=120px></a> 
+        <a href="#" class="btn btn-danger btn-lg">
+            <span class="glyphicon glyphicon-off"></span> Sign Out
+        </a>
+    </header>
     <div class="container">
         <h1>Nouvelle Déclaration</h1>
         <form action="new_decl.php" method="post">

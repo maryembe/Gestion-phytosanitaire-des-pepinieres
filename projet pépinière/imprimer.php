@@ -21,7 +21,7 @@
     <title>Inscription</title>
 </head>
 <body>
-    <header><img src="" alt="logo"></header>
+    <header><img src="../img/logo.png" alt="logo"></header>
     <div class="container">
         <h1>Demande ACP/LP</h1>
         <form >

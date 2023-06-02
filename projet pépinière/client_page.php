@@ -58,7 +58,7 @@ if (isset($_GET['decl'])) {
         }
         h1{
             margin-top: 0;
-            padding-top: 50px;
+            padding-top: 80px;
             border-bottom: solid 2px #fff;
         }
         body{
@@ -68,11 +68,33 @@ if (isset($_GET['decl'])) {
             color: #fff;
         }
         
+        img[alt="logo"]{
+            width: 120px;
+        }
+        .message{
+            padding: 5px;
+            color: #000;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+        .message:hover{
+            background-color: lightgray;
+        }
+        .date{
+            color:#000;
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
     <title>Ctrlpep</title>
 </head>
 <body>
-    <header><img src="" alt="logo"></header>
+    <header>
+        <a href="../php/index.php"><img src="../img/logo.png" alt="logo"></a> 
+        <a href="../php/logout.php" class="btn btn-danger btn-lg">
+            <span class="glyphicon glyphicon-off"></span> Sign Out 
+        </a>
+    </header>
     <h1 class="container" >Bienvenue <?php echo $_SESSION["username"] ?></h1>
     <div class="container corps">
         <!--                              le corps                           -->
@@ -128,73 +150,85 @@ $list_decl->bindParam(":user", $user);
 $list_decl->execute();
 $list = $list_decl->fetchAll();
 
+
 foreach($list as $decl){
     
-    //id du ctrl doc
-    $select_ctrl_doc= $conn->prepare("SELECT id_ctrl_doc,date FROM `ctrl_doc` WHERE `id_decl` = :id");
+    // les id du ctrl doc
+    $select_ctrl_doc= $conn->prepare("SELECT id_ctrl_doc,date_ctrl_doc FROM `ctrl_doc` WHERE `id_decl` = :id");
     $select_ctrl_doc->bindParam(":id", $decl["N_enregistr"]);
     $select_ctrl_doc->execute();
-    $ctrl_doc = $select_ctrl_doc->fetchAll();
+    $ctrls_doc = $select_ctrl_doc->fetchAll();
+    
+    
 
-    //si il n'ya pas de ctrl doc
-    if(count($ctrl_doc)==0){
-        break;
+    //si il y a au moins un ctrl doc
+    if(count($ctrls_doc)>0){
+        foreach($ctrls_doc as $ctrl_doc){
+            
+            //selecter le message
+            $select_msg_ctrl_doc= $conn->prepare("SELECT Result_ctrl_doc FROM `courrier` WHERE `id_ctrl_doc` = :id");
+            $select_msg_ctrl_doc->bindParam(":id", $ctrl_doc["id_ctrl_doc"]);
+            $select_msg_ctrl_doc->execute();
+            $msg_doc = $select_msg_ctrl_doc->fetchAll();
+            $msg_doc=$msg_doc[0]["Result_ctrl_doc"];
+            
+            //envoyer le message ctrl doc
+            //afficher le message et la date
+            ?>
+            <script>
+                var message = <?php echo json_encode($msg_doc); ?>;
+                var date = <?php echo json_encode($ctrl_doc['date_ctrl_doc']); ?>;
+                console.log(date);
+                var corps=document.getElementById("corps");
+                corps.innerHTML+=`
+                        <div class="date">
+                            <span><strong>Control documentaire</strong></span>
+                            <span><strong>${date}</strong></span>
+                        </div>
+                        <p class="message">${message}</p>
+                `;
+            </script>
+            <?php
+            // <les id du ctrl1
+            $select_ctrl1= $conn->prepare("SELECT id_ctrl1,date_ctrl1 FROM `ctrl1` WHERE `id_ctrl_doc` = :id");
+            $select_ctrl1->bindParam(":id", $ctrl_doc["id_ctrl_doc"]);
+            $select_ctrl1->execute();
+            $ctrl1s = $select_ctrl1->fetchAll();
+            
+            //si il ya de ctrl1
+            if(count($ctrl1s)>0){
+                foreach($ctrl1s as $ctrl1){
+                    //selecter le message
+                    $select_msg_ctrl1= $conn->prepare("SELECT Result_ctr1 FROM `courrier` WHERE `id_ctrl1` = :id");
+                    $select_msg_ctrl1->bindParam(":id", $ctrl1["id_ctrl1"]);
+                    $select_msg_ctrl1->execute();
+                    $msg1 = $select_msg_ctrl1->fetchAll();
+                    //afficher le message et la date
+                    ?>
+                    <script>
+                        // Utilisez la variable $msg1 ici
+                        var message1 = <?php echo json_encode($msg1[0]['Result_ctr1']); ?>;
+                        var date1 = <?php echo json_encode($ctrl1[0]['date_ctrl1']); ?>;
+                        console.log(message1);
+                        var corps=document.getElementById("corps");
+                        corps.innerHTML+=`
+                                <div class="date">
+                                    <span><strong>Control Physique 1</strong></span>
+                                    <span><strong>${date1}</strong></span>
+                                </div>
+                                <p class="message">${message1}></p>
+                        `;
+                    </script>
+                    <?php
+                }
+            }
+        }
     }
-
-    //selecter le message
-    $select_msg_ctrl_doc= $conn->prepare("SELECT Result_ctrl_doc FROM `courrier` WHERE `id_ctrl_doc` = :id");
-    $select_msg_ctrl_doc->bindParam(":id", $ctrl_doc[0]["id_ctrl_doc"]);
-    $select_msg_ctrl_doc->execute();
-    $msg_doc = $select_msg_ctrl_doc->fetch();
-    $msg_doc=$msg_doc[0];
-    
-
-    //envoyer le message ctrl doc
-    //afficher le message et la date
-    ?>
-    <script>
-        // Utilisez la variable $msg_doc ici
-        var message = <?php echo json_encode($msg_doc); ?>;
-        var date = <?php echo json_encode($ctrl_doc[0]['date']); ?>;
-        console.log(date);
-        var corps=document.getElementById("corps");
-        corps.innerHTML+=`<label for="usrname"><strong>${date}</strong></label>
-                        <input type="text" class="form-control" value=${message}>
-        `;
-    </script>
-    <?php
-
-    //id du ctrl1
-    
-    $select_ctrl1= $conn->prepare("SELECT id_ctrl1,date FROM `ctrl1` WHERE `id_ctrl_doc` = :id");
-    $select_ctrl1->bindParam(":id", $ctrl_doc[0]["id_ctrl_doc"]);
-    $select_ctrl1->execute();
-    $ctrl1 = $select_ctrl1->fetchAll();
-    
-    //si il n'ya pas de ctrl1
-    if(count($ctrl1)==0){
-        break;
-    }
-
-    //selecter le message
-    $select_msg_ctrl1= $conn->prepare("SELECT Result_ctr1 FROM `courrier` WHERE `id_ctrl1` = :id");
-    $select_msg_ctrl1->bindParam(":id", $ctrl1[0]["id_ctrl1"]);
-    $select_msg_ctrl1->execute();
-    $msg1 = $select_msg_ctrl1->fetchAll();
-    //afficher le message et la date
-    ?>
-    <script>
-        // Utilisez la variable $msg1 ici
-        var message1 = <?php echo json_encode($msg1[0]['Result_ctr1']); ?>;
-        var date1 = <?php echo json_encode($ctrl1[0]['date']); ?>;
-        console.log(message1);
-        var corps=document.getElementById("corps");
-        corps.innerHTML+=`<label for="usrname"><strong>${date1}</strong></label>
-                        <input type="text" class="form-control" value=${message1}>
-        `;
-    </script>
-    <?php
 }
+    
+    
+
+//Traçons maintenant le processus et affichant les buttons nécéssaires
 
 
 if(count($list)==0){

@@ -32,7 +32,7 @@ if (isset($_GET['N_enregistr'])) {
     display: flex;
     align-items: center  ;
     justify-content: space-between ;
-    padding: 1.2rem 5%;
+    padding: 0rem 5%;
     position: fixed;
     top: 0;
     left: 0;
@@ -49,10 +49,9 @@ if (isset($_GET['N_enregistr'])) {
 
 <body>
     <header>
-        <img src="LOGO.png">
-
-
-        <nav class="navbar">
+        
+        <a href="home.php"><img src="../img/logo.png" width=120px></a>
+        <nav class="navbar" style="padding:0">
         <a href="home.php">Mes déclarations </a>
            <a href="Controls.php?N_enregistr=<?php echo $_SESSION['N_enregistr'];?>&Etat=<?php echo $_SESSION['Etat']; ?>"> Formulaire  à remplir</a>
          
@@ -78,7 +77,7 @@ $stmt->execute();
 ?>
       		
 			
-			  <table class="table">
+			  <table class="table" style="font-size: medium;">
     <thead>
             <th>Numero d'enregistrement</th>
             <th>Date de declaration </th>

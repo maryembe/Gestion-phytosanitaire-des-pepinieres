@@ -54,8 +54,8 @@ if (isset($_GET['Etat'])) {
 
 </head>
 <body>
-<header>
-<a href="index.php"> <img src="LOGO.png" alt="logo"></a>
+<header style="padding-top:0;padding-bottom:0">
+<a href="index.php"> <img src="../img/logo.png" alt="logo" width=120px></a>
 <nav class="navbar">
         <a href="home.php">Mes déclarations </a>
            

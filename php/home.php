@@ -20,7 +20,7 @@
     display: flex;
     align-items: center  ;
     justify-content: space-between ;
-    padding: 1.2rem 5%;
+    padding: 0.3rem 5%;
     position: fixed;
     top: 0;
     left: 0;
@@ -28,18 +28,26 @@
     z-index: 1000;
 }
 
+img[alt="logo"]{
+	width: 120px;
+    padding-top:0px;
+    padding-bottom: 0px;
+}
+.corps{
+    margin-top: 80px;
+}
 </style>
 
 
 </head>
 <body>
 <header>
-<a href="index.php"> <img src="LOGO.png" alt="logo"></a>
+<a href="index.php"> <img src="../img/logo.png" alt="logo"></a>
 
 
     </header>
      <!-- centrer le contenu horizontalement et verticalement sur la page. -->
-	 <div class="container d-flex justify-content-center align-items-center"
+	 <div class="container d-flex justify-content-center align-items-center corps"
       style="min-height: 100vh">
 	  <!-- vérifier le rôle de l'utilisateur et afficher les contenus en fonction du rôle . -->
       	<?php if ($_SESSION['role'] == 'Agent') {

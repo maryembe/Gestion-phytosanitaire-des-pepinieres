@@ -169,11 +169,23 @@ if(isset($_POST["submit"])){
         .form_hidden{
             border: 0;
         }
+        img[alt="logo"]{
+            width: 150px;
+        }
+        header{
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
     </style>
     <title>Demande du ACP/LP</title>
 </head>
 <body>
-    <header><img src="" alt="logo"></header>
+    <header>
+        <a href="../php/index.php"><img src="../img/logo.png" alt="logo"></a> 
+        <a href="#" class="btn btn-danger btn-lg">
+            <span class="glyphicon glyphicon-off"></span> Sign Out 
+        </a>
+    </header>
     <div class="container">
         <h1>Demande ACP/LP</h1>
         <form action="" method="post" class="">

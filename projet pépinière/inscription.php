@@ -8,12 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="inscription.css">
+    <style>
+        header{
+            padding-top: 0.8rem;
+            padding-bottom: 0.8rem;
+        }
+    </style>
     <script src="submit.js"></script>
     
     <title>Inscription</title>
 </head>
 <body>
-    <header><img src="" alt="logo"></header>
+    <header><a href="../php/index.php"><img src="../img/logo.png" alt="logo" width=120px></a></header>
     <div class="container">
         <h1>Inscription</h1>
 
@@ -79,7 +85,7 @@ if(isset($_POST["submit"])){
         }
     }
     
-    // Vérifier si le username est déjà utiliser 
+    // Vérifier si le username est déjà utilisé
     $user_list = $conn->prepare("SELECT COUNT(*) FROM `pep` WHERE `username` = :user");
     $user_list->bindParam(":user", $user);
     $user_list->execute();
@@ -101,9 +107,10 @@ if(isset($_POST["submit"])){
 
 
     //enregistrement du user
+    $p=md5($pass);
     $req=$conn->prepare("INSERT INTO `pep` VALUES ( :user, :pass, 'Pepinieriste');");
     $req->bindParam(":user",$user);
-    $req->bindParam(":pass",$pass);
+    $req->bindParam(":pass",$p);
     $req->execute();
 
     //enregistrement physique

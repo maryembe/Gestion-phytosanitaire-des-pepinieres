@@ -15,13 +15,15 @@
             background-size: 1350px 700px;
 			background-color: #012208d3;
 		}
-		
+		img[alt="logo"]{
+			width: 120px;
+		}
 	</style>
 
 </head>
 <body>
 <header>
-<a href="index.php"> <img src="LOGO.png" alt="logo"></a>
+<a href="index.php"> <img src="../img/logo.png" alt="logo"></a>
     </header>
 	
       <div class="container d-flex justify-content-center align-items-center"

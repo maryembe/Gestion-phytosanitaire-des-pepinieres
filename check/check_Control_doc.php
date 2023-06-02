@@ -1,5 +1,4 @@
 <?php  
-
 session_start();
 include "../php/db_conn.php";
 
@@ -55,7 +54,6 @@ $dbname = "database";
           }*/
             
             // Requête d'insertion des données dans la table ctrl_doc
-            
             $sql = "INSERT INTO ctrl_doc (date_ctrl_doc, conform , id_decl ) VALUES (:date_ctrl_doc, :conform, :id_decl)ON DUPLICATE KEY UPDATE
             date_ctrl_doc = :date_ctrl_doc, conform = :conform";
             $stmt = $pdo->prepare($sql);
