@@ -183,7 +183,7 @@ if(isset($_POST["submit"])){
                 <input class="form-control" type="text" name="dest" placeholder="Destination">
             </div>
             <div class="form-group">
-                <input class="form-control" type="number" name="nb_v" placeholder="Nombre de total variétés concernées">
+                <input class="form-control" type="number" name="nb_v" placeholder="Nombre total de produits à extraire">
             </div>
             <div class="corps"></div>
             <button class="btn btn-success" type="submit" name="submit">Imprimer ACP/LP</button>
