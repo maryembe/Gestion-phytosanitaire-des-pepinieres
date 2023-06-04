@@ -38,6 +38,28 @@ if (isset($_GET['N_enregistr'])) {
     left: 0;
     right: 0;
     z-index: 1000;
+}.table{
+    margin-top: 80px;
+    background-color: rgba(255, 255, 255, 0.7);
+    /*background-color: white;*/
+    padding: 20px; /* Add padding to the div containing the list for better readability */
+   /* border-radius: 8px; /* Optional: Add border-radius for a rounded corner effect */
+   
+}
+
+.table td {
+    color: #000000; /* Set the text color to black */
+}body {
+    margin: 0;
+    background-image: url("3.jpg"); 
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+img[alt="logo"]{
+	width: 120px;
+    padding-top:0px;
+    padding-bottom: 0px;
 }
 
 
@@ -79,10 +101,11 @@ $stmt->execute();
 			
 			  <table class="table" style="font-size: medium;">
     <thead>
-            <th>Numero d'enregistrement</th>
-            <th>Date de declaration </th>
-            <th>Etat </th>
-			
+    <tr>
+            <th>Nnuméro d'enregistrement</th>
+            <th>Date de déclaration </th>
+            <th>État de suivi </th>
+			</tr>
     
     </thead>
 
