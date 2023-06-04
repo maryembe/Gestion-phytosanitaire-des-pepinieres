@@ -4,8 +4,11 @@ Pour tester ce code, vous devez suivre les étapes suivantes :
 #
 -Assurez-vous d'avoir installé XAMPP et activé Apache et MySQL.
 #
--Accédez à PHPMyAdmin et exécutez les fichiers dont le chemin d'accès est "pfa/db/database.db". Cela préparera la base de données pour une utilisation ultérieure.
+-Utilisez Git Bash pour cloner notre application dans le répertoire XAMPP/htdocs/dossier (où "dossier" est le nom d'un dossier vide de votre choix). Assurez-vous d'avoir installé Git Bash sur votre système, puis ouvrez-le et accédez au répertoire souhaité à l'aide de la commande "cd chemin/vers/le/répertoire". Ensuite, exécutez la commande "git clone <URL_du_dépôt>" en remplaçant "<URL_du_dépôt>" par l'URL du dépôt GitHub contenant l'application à cloner. Git Bash commencera alors à télécharger les fichiers de l'application dans le répertoire spécifié. Pour accéder à l'application, assurez-vous que XAMPP est en cours d'exécution, puis ouvrez votre navigateur et entrez "localhost/dossier/php" dans la barre d'adresse. Ainsi, vous pourrez utiliser notre application en accédant à cette URL dans votre navigateur.
 #
+-Accédez à PHPMyAdmin et exécutez en sql  le fichiers dont le chemin d'accès est "pfa/db/database(1).db". Cela préparera la base de données pour une utilisation ultérieure.
+#
+-vous pouvez accéder maintenant a notre application en ut
 -Pour vous connecter en tant que pépiniériste, cliquez sur "Sign Up" situé en haut à droite et créez votre compte en choisissant si vous êtes une personne physique ou morale.
 #
 -Une fois inscrit, vous pouvez effectuer une déclaration en cliquant sur "Nouvelle Déclaration", puis choisissez le nombre de variétés et cliquez sur "Entrer". Des champs à remplir apparaîtront en fonction du nombre de variétés entrées.
