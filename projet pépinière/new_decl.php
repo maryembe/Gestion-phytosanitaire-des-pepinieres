@@ -152,7 +152,7 @@ if(isset($_POST["submit"])){
         <h1>Nouvelle Déclaration</h1>
         <form action="new_decl.php" method="post">
             <div class="form-group">
-                <input class="form-control" type="number" name="nb_v" placeholder="Nombre de total variétés à déclarer">
+                <input class="form-control" type="number" name="nb_v" placeholder="Nombre total de produits à déclarer">
             </div>
             <div class="corps"></div>
             <button class="btn btn-success" type="submit" name="submit">Déclarer</button>
