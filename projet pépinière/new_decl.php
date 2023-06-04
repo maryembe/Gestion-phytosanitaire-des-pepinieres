@@ -119,8 +119,23 @@ if(isset($_POST["submit"])){
     <link rel="stylesheet" href="inscription.css">
     <style>
         header{
+            font-family: "latha";
             padding-top: 0.8rem;
             padding-bottom: 0.8rem;
+        }
+        a[href="../php/logout.php"]{
+            text-decoration: none;
+            font-size: 1.3rem;
+            color: #eee;
+            cursor: pointer;
+            text-align: center;
+            width: 90px;
+            transition: .2s linear;
+        }
+        a[href="../php/logout.php"]:hover {
+            color: #ccee0d;
+            border-bottom: .1rem solid #f5f107;
+            padding-bottom: .5em;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -131,9 +146,7 @@ if(isset($_POST["submit"])){
 <body>
     <header> 
         <a href="../php/index.php"><img src="../img/logo.png" alt="logo" width=120px></a> 
-        <a href="../php/logout.php" class="btn btn-danger btn-lg">
-            <span class="glyphicon glyphicon-off"></span> Sign Out
-        </a>
+        <a href="../php/logout.php">Sign Out</a>
     </header>
     <div class="container">
         <h1>Nouvelle Déclaration</h1>

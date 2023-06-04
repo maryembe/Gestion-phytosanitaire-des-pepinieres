@@ -34,7 +34,7 @@ if (isset($_GET['decl'])) {
             border-radius: 10px;
         }
         .but_d{
-          margin-left: 700px;
+          margin-left: 750px;
           margin-right: 10px;
         }
         a{
@@ -62,6 +62,7 @@ if (isset($_GET['decl'])) {
             border-bottom: solid 2px #fff;
         }
         body{
+            font-family: latha;
             background-image: url(../php/3.jpg); 
             background-repeat: no-repeat;
             background-size: cover;
@@ -70,6 +71,7 @@ if (isset($_GET['decl'])) {
         
         img[alt="logo"]{
             width: 120px;
+            cursor: pointer;
         }
         .message{
             padding: 5px;
@@ -85,15 +87,26 @@ if (isset($_GET['decl'])) {
             display: flex;
             justify-content: space-between;
         }
+        a[href="../php/logout.php"]{
+            font-size: 2rem;
+            color: #eee;
+            cursor: pointer;
+            text-align: center;
+            width: 90px;
+            transition: .2s linear;
+        }
+        a[href="../php/logout.php"]:hover {
+            color: #ccee0d;
+            border-bottom: .1rem solid #f5f107;
+            padding-bottom: .5em;
+        }
     </style>
     <title>Ctrlpep</title>
 </head>
 <body>
     <header>
         <a href="../php/index.php"><img src="../img/logo.png" alt="logo"></a> 
-        <a href="../php/logout.php" class="btn btn-danger btn-lg">
-            <span class="glyphicon glyphicon-off"></span> Sign Out 
-        </a>
+        <a href="../php/logout.php">Sign Out </a>
     </header>
     <h1 class="container" >Bienvenue <?php echo $_SESSION["username"] ?></h1>
     <div class="container corps">
