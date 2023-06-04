@@ -27,6 +27,12 @@
     right: 0;
     z-index: 1000;
 }
+body {
+    margin: 0;
+    background-image: url("3.jpg"); 
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 img[alt="logo"]{
 	width: 120px;
@@ -35,6 +41,13 @@ img[alt="logo"]{
 }
 .corps{
     margin-top: 80px;
+    background-color: rgba(255, 255, 255, 0.7);
+    /*background-color: white;*/
+    padding: 20px; /* Add padding to the div containing the list for better readability */
+    border-radius: 8px; /* Optional: Add border-radius for a rounded corner effect */
+}
+.corps table td {
+    color: #000000; /* Set the text color to black */
 }
 </style>
 
@@ -64,9 +77,9 @@ img[alt="logo"]{
 			
 	<table class="table">
     <thead>
-            <th>Numero d'enregistrement</th>
-            <th>Date de declaration </th>
-            <th>Etat </th>
+            <th>Id de pépiniériste</th>
+            <th>Date de déclaration </th>
+            <th>État de suivi </th>
 
     </thead>
 
@@ -74,7 +87,7 @@ img[alt="logo"]{
     
     <?php      while($row = $stmt->fetch())
                 { ?>                <tr>
-                                    <td><?php echo $row->N_enregistr;?></td>
+                                    <td><?php echo $row->id_pep;?></td>
                                     <td><?php echo $row->date_decl;?></td>
                                     <td><?php echo $row->Etat;?> </td>
                                                                
