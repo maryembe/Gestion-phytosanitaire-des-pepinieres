@@ -27,7 +27,7 @@ CREATE TABLE `database`.`personne_physique` (
        `tel` VARCHAR(10) NOT NULL ,
        `adresse_pep` VARCHAR(75) NOT NULL ,
        `nom_pep` VARCHAR(50) NOT NULL ,
-       id_pep VARCHAR(50) REFERENCES pep(username), 
+       id_pep VARCHAR(50) NOT NULL REFERENCES pep(username), 
        PRIMARY KEY (`CIN`));
 
 CREATE TABLE `database`.`personne_morale` (
@@ -36,14 +36,14 @@ CREATE TABLE `database`.`personne_morale` (
     `nom` VARCHAR(50) NOT NULL ,
     `adresse` VARCHAR(75) NOT NULL ,
     `tel` VARCHAR(10) NOT NULL ,
-    id_pep VARCHAR(50) REFERENCES pep(username), 
+    id_pep VARCHAR(50) NOT NULL REFERENCES pep(username), 
     PRIMARY KEY (`ICE`));
 
 CREATE TABLE `database`.`declaration` (
     `N_enregistr` INT NOT NULL AUTO_INCREMENT,
     `date_decl` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    `Etat` enum('Non prise en charge ','Control documentaire non conforme ',"Control documentaire conforme","Control Physique 1 non conforme","Control Physique 1 conforme","Control Physique 2 conforme","Control Physique 2 non conforme") NOT NULL ,
-    id_pep VARCHAR(50) REFERENCES pep(username),
+    `Etat` enum('Non prise en charge ','Control documentaire non conforme ','Control documentaire conforme','Control Physique 1 non conforme','Control Physique 1 conforme','Control Physique 2 conforme','Control Physique 2 non conforme') NOT NULL ,
+    id_pep VARCHAR(50) NOT NULL REFERENCES pep(username),
      PRIMARY KEY (`N_enregistr`))AUTO_INCREMENT=1;
 
 CREATE TABLE `database`.`plant` (
@@ -52,32 +52,32 @@ CREATE TABLE `database`.`plant` (
     `variete` VARCHAR(50) NOT NULL ,
     `porte_greffe` VARCHAR(50) NOT NULL ,
     `nb` INT NOT NULL ,
-    id_decl VARCHAR(50) REFERENCES declaration(N_enregistr), 
+    id_decl VARCHAR(50) NOT NULL REFERENCES declaration(N_enregistr), 
     PRIMARY KEY (`id_plant`))AUTO_INCREMENT=1;
 
 CREATE TABLE `database`.`ctrl_doc` (
-    `id_ctrl_doc` INT NOT NULL ,
+    `id_ctrl_doc` INT NOT NULL AUTO_INCREMENT,
     `date_ctrl_doc` DATE NOT NULL , 
     `conform` VARCHAR(50) NOT NULL ,
-    id_decl VARCHAR(50) REFERENCES declaration(N_enregistr), 
+    id_decl VARCHAR(50) NOT NULL REFERENCES declaration(N_enregistr), 
     PRIMARY KEY (`id_ctrl_doc`))AUTO_INCREMENT=1;
 
 CREATE TABLE `database`.`ctrl1` (
-    `id_ctrl1` INT NOT NULL ,
+    `id_ctrl1` INT NOT NULL AUTO_INCREMENT,
     `date_ctrl1` DATE NOT NULL , 
     `conform` VARCHAR(50) NOT NULL ,
-    id_ctrl_doc INT REFERENCES ctrl_doc(id_ctrl_doc), 
+    id_ctrl_doc INT NOT NULL REFERENCES ctrl_doc(id_ctrl_doc), 
     PRIMARY KEY (`id_ctrl1`))AUTO_INCREMENT=1;
 
 CREATE TABLE `database`.`ctrl2` (
-    `id_ctrl2` INT NOT NULL ,
+    `id_ctrl2` INT NOT NULL AUTO_INCREMENT,
     `date_ctrl2` DATE NOT NULL , 
     `conform` VARCHAR(50) NOT NULL ,
-    id_ctrl1 INT REFERENCES ctrl1(id_ctrl1), 
+    id_ctrl1 INT NOT NULL REFERENCES ctrl1(id_ctrl1), 
     PRIMARY KEY (`id_ctrl2`))AUTO_INCREMENT=1;
 
 CREATE TABLE `database`.`courrier` (
-    `Num` INT NOT NULL  ,
+    `Num` INT NOT NULL AUTO_INCREMENT,
     id_ctrl_doc INT REFERENCES ctrl_doc(id_ctrl_doc),
     `Result_ctrl_doc` VARCHAR(150)  ,
     id_ctrl1 INT REFERENCES ctrl1(id_ctrl1),
@@ -88,7 +88,7 @@ CREATE TABLE `database`.`acp` (
     `id_acp` INT NOT NULL AUTO_INCREMENT,
     `date_acp` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `destination` VARCHAR(100) NOT NULL ,
-    id_DECL INT REFERENCES declaration(N_enregistr), 
+    id_DECL INT NOT NULL REFERENCES declaration(N_enregistr), 
     PRIMARY KEY (`id_acp`))AUTO_INCREMENT=1;
 
 
