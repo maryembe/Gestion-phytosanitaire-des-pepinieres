@@ -1,8 +1,9 @@
 # PFA
 # Instructions pour tester le code
 Pour tester ce code, vous devez suivre les étapes suivantes :
-
+#
 -Assurez-vous d'avoir installé XAMPP et activé Apache et MySQL.
+#
 -Accédez à PHPMyAdmin et exécutez les fichiers dont le chemin d'accès est "pfa/db/database.db". Cela préparera la base de données pour une utilisation ultérieure.
 -Pour vous connecter en tant que pépiniériste, cliquez sur "Sign Up" situé en haut à droite et créez votre compte en choisissant si vous êtes une personne physique ou morale.
 =Une fois inscrit, vous pouvez effectuer une déclaration en cliquant sur "Nouvelle Déclaration", puis choisissez le nombre de variétés et cliquez sur "Entrer". Des champs à remplir apparaîtront en fonction du nombre de variétés entrées.
